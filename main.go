@@ -1,15 +1,23 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
 
-	handler "nakhun/web-server/handler"
-	middleware "nakhun/web-server/middleware"
+	handler "nakhun/web-server/handlers"
+	middleware "nakhun/web-server/middlewares"
+	"nakhun/web-server/models"
 )
 
 func main() {
+	err := models.InitDB()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer models.CloseDB()
+
 	router := mux.NewRouter()
 
 	router.HandleFunc("/", middleware.Logging(handler.GetHome))
