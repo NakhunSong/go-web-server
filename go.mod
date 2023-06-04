@@ -1,4 +1,4 @@
-module practice/go-web-server
+module nakhun/web-server
 
 go 1.20
 
